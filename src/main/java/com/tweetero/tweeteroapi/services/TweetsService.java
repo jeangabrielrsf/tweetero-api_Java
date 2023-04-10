@@ -21,5 +21,15 @@ public class TweetsService {
     public List<Tweet> list(){
         return tweetsRepository.findAll();
     }
+
+    // public List<Tweet> listUserTweets(String username) {
+    //     return tweetsRepository.findBy(username, null);
+    // }
+
+    public List<Tweet> listUserTweets(String username) {
+        var teste = tweetsRepository.findByUsername(username);
+        System.out.println(teste);
+        return teste;
+    }
     
 }

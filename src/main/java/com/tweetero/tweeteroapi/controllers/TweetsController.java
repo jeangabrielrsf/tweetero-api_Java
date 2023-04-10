@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,17 +20,22 @@ import com.tweetero.tweeteroapi.services.TweetsService;
 public class TweetsController {
 
     @Autowired
-    private TweetsService service;
+    private TweetsService tweetsService;
 
     @PostMapping("/tweets")
     @ResponseStatus(value = HttpStatus.CREATED)
     public String signUp(@RequestBody TweetDTO req) {
-        service.create(new Tweet(req));
+        tweetsService.create(new Tweet(req));
         return "OK";
     }
 
     @GetMapping("/tweets")
     public List<Tweet> listAll() {
-        return service.list();
+        return tweetsService.list();
+    }
+
+    @GetMapping("/tweets/{username}")
+    public List<Tweet> listUserTweets(@PathVariable String username) {
+        return tweetsService.listUserTweets(username);
     }
 }
